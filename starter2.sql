@@ -5,6 +5,12 @@ CREATE TABLE Enrollments (
     course_id integer REFERENCES Courses(course_id)
 );
 
+ALTER TABLE Enrollments
+ADD CONSTRAINT unique_enrollment
+UNIQUE (student_id, course_id);
+
+
+
 INSERT INTO Enrollments (student_id, course_id)
      VALUES 
      (1, 1),
@@ -12,7 +18,7 @@ INSERT INTO Enrollments (student_id, course_id)
      (3, 2),
      (4, 3),
      (1, 3);
-
+  
 CREATE TABLE TeacherCourse  (
     TeacherCourse_id serial PRIMARY KEY,
     teacher_id integer REFERENCES Teachers(teacher_id),
@@ -27,14 +33,13 @@ INSERT INTO TeacherCourse (teacher_id, course_id)
 
   CREATE TABLE Grades   (
     Grades_id serial PRIMARY KEY,
-    student_id integer REFERENCES Students(student_id),
-    course_id integer REFERENCES Courses(course_id),
+    enrollment_id integer REFERENCES Enrollments(enrollment_id),
     Grade integer
 );
 
-INSERT INTO Grades (student_id, course_id, Grade)
+INSERT INTO Grades (enrollment_id, Grade)
      VALUES 
-     (1, 1,100),
-     (2, 2,90),
-     (3, 3,80),
-     (4, 3,70);
+     (6,100),
+     (7,90),
+     (8,80),
+     (9,70);
